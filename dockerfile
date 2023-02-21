@@ -9,10 +9,12 @@ RUN apt-get update\
     apt-get install nginx\
     apt-get install mysql-server
 
+ARG PW
+
 RUN mysql\
     use mysql;\
     SELECT user, authentication_string, plugin, host FROM user;\
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'advance7M!llion';\
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PW';\
     FLUSH PRIVILEGES;\
     exit;
 
@@ -37,3 +39,4 @@ RUN sed -i 's/%%%%/${DNS}/g' /etc/nginx/sites-available/default
 
 WORKDIR /var/www/html
 RUN --mount --root=./html
+

@@ -4,10 +4,10 @@ EXPOSE 443
 EXPOSE 80
 
 # 
-RUN apt-get update\
-    apt-get upgrade\
-    apt-get install nginx\
-    apt-get install mysql-server
+RUN apt-get update --yes\
+    apt-get upgrade --yes\
+    apt-get install nginx --yes\
+    apt-get install mysql-server --yes
 
 ARG PW
 RUN mysql\
@@ -17,7 +17,7 @@ RUN mysql\
     FLUSH PRIVILEGES;\
     exit;
 
-RUN apt-get install php-fpm
+RUN apt-get install php-fpm --yes
 
 COPY configs/cert_ext.cnf cert_ext.cnf
 
@@ -31,11 +31,8 @@ COPY configs/self-signed.conf /etc/nginx/snippets/self-signed.conf
 COPY configs/ssl-params.conf /etc/nginx/snippets/ssl-params.conf
 COPY configs/default /etc/nginx/sites-available/default
 
-RUN apt-get install phpMyAdmin\
+RUN apt-get install phpMyAdmin --yes\
     ln -s /usr/share/phpmyadmin /var/www/html/dbadmin
 
 RUN sed -i "s/%%%%/${DNS}/g" /etc/nginx/sites-available/default
-
-WORKDIR /var/www/html
-RUN --mount --root=./html
 

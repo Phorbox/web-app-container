@@ -47,7 +47,7 @@ server {
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name %%%%%;
+    server_name %%%%;
     return 302 https://$server_name$request_uri;
 }
 

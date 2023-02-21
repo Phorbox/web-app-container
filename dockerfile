@@ -10,11 +10,10 @@ RUN apt-get update\
     apt-get install mysql-server
 
 ARG PW
-
 RUN mysql\
     use mysql;\
     SELECT user, authentication_string, plugin, host FROM user;\
-    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$PW';\
+    ALTER USER "root"@"localhost" IDENTIFIED WITH mysql_native_password BY "$PW";\
     FLUSH PRIVILEGES;\
     exit;
 
@@ -35,7 +34,7 @@ COPY configs/default /etc/nginx/sites-available/default
 RUN apt-get install phpMyAdmin\
     ln -s /usr/share/phpmyadmin /var/www/html/dbadmin
 
-RUN sed -i 's/%%%%/${DNS}/g' /etc/nginx/sites-available/default
+RUN sed -i "s/%%%%/${DNS}/g" /etc/nginx/sites-available/default
 
 WORKDIR /var/www/html
 RUN --mount --root=./html

@@ -1,0 +1,13 @@
+FROM mysql
+
+EXPOSE 443
+EXPOSE 80
+EXPOSE 3306
+
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y nginx \
+    mysql-server 
+
+COPY makit.sh makit.sh 

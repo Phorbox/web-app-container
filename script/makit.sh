@@ -32,4 +32,6 @@ ln -s /usr/share/phpmyadmin /var/www/html/dbadmin
 
 echo ""
 echo "mysql password: ${1}"
+echo "index: https://${2}/"
+echo "dbadmin: https://${2}/dbadmin"
 echo ""
